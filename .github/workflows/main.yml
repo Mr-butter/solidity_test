@@ -25,14 +25,6 @@ jobs:
             # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
             - uses: actions/checkout@v2
 
-            - name: Cache modules
-              uses: actions/cache@v1
-              id: yarn-cache
-              with:
-                  path: node_modules
-                  key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-                  restore-keys: ${{ runner.os }}-yarn-
-
             - name: Use Node.js 16.x
               uses: actions/setup-node@v1
               with:
@@ -40,11 +32,11 @@ jobs:
 
             - name: module install
               run: cd client,
-                  npm install
+                  yarn install
 
             - name: build
               run: cd client,
-                  npm run build
+                  yarn build
 
             - name: Configure AWS credentials
               uses: aws-actions/configure-aws-credentials@v1
