@@ -75,9 +75,7 @@ const App = () => {
     return (
         <div>
             <nav className="navbar navbar-light bg-light px-4">
-                <a className="navbar-brand" href="#">
-                    제20대 대통령선거
-                </a>
+                <a className="navbar-brand">제20대 대통령선거</a>
                 <span>
                     <select
                         id="accounts"
