@@ -11,11 +11,9 @@ const App = () => {
     const [account, setAccount] = useState("");
     const [coders, setCoders] = useState([]);
     const [mintText, setMintText] = useState("");
-    const [totalSupply, setTotalSupply] = useState("");
 
     const loadNFTS = async (contract) => {
         const totalNum = await contract.methods.totalSupply().call();
-        setTotalSupply(totalNum);
         let nfts = [];
         for (let i = 0; i < totalNum; i++) {
             let coder = await contract.methods.Candidates(i).call();
@@ -36,8 +34,6 @@ const App = () => {
     const loadWebContract = async (web3) => {
         const networkId = await web3.eth.net.getId();
         const networkData = Election.networks[networkId];
-        console.log(networkId);
-        console.log(networkData);
         if (networkData) {
             const abi = Election.abi;
             const address = networkData.address;
@@ -52,11 +48,11 @@ const App = () => {
     // load the contract
     // load all the NFTs
 
-    useEffect(async () => {
-        const web3 = await getWeb3();
-        await loadWeb3Account(web3);
-        let contract = await loadWebContract(web3);
-        await loadNFTS(contract);
+    useEffect(() => {
+        const web3 = getWeb3();
+        loadWeb3Account(web3);
+        let contract = loadWebContract(web3);
+        loadNFTS(contract);
     }, []);
 
     const mint = async () => {
